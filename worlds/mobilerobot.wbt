@@ -8,8 +8,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.14959339735046506 -0.02675632902594668 0.9883855089620656 2.821139932958747
-  position -0.8448793864415415 0.019752297602726177 0.5663014185782123
+  orientation -0.6019060821600438 0.5841142824386594 0.5445361083618941 2.169317374794698
+  position -0.7349260643326049 -0.29160958812728194 2.265652524984823
 }
 TexturedBackground {
 }
@@ -307,7 +307,7 @@ Robot {
               }
             ]
             endPoint DEF joint1 Solid {
-              translation -0.020000063554223936 -3.217843157466318e-08 -3.6779615822406996e-06
+              translation -0.020000063554223936 -3.2178431574662754e-08 -3.6779615822406763e-06
               rotation 0.11803697737839201 -0.9859778110388496 -0.11796197739276616 1.5847253071795835
               children [
                 DEF joint1 Shape {
@@ -412,14 +412,14 @@ Robot {
                                             DEF gripper1 HingeJoint {
                                               jointParameters HingeJointParameters {
                                                 anchor -6.11019e-06 0.04 2.07414e-10
-                                                minStop -0.4
-                                                maxStop 1.4
+                                                minStop -2.5
+                                                maxStop 2.5
                                               }
                                               device [
                                                 RotationalMotor {
                                                   name "gripperJoint1"
-                                                  minPosition -0.4
-                                                  maxPosition 1.4
+                                                  minPosition -2.5
+                                                  maxPosition 2.5
                                                 }
                                               ]
                                               endPoint Solid {
@@ -490,14 +490,14 @@ Robot {
                                             DEF gripper2 HingeJoint {
                                               jointParameters HingeJointParameters {
                                                 anchor -2.03695e-12 -0.04 2.07414e-10
-                                                minStop -1.2
-                                                maxStop 0.5
+                                                minStop -2.5
+                                                maxStop 2.5
                                               }
                                               device [
                                                 RotationalMotor {
                                                   name "gripperJoint2"
-                                                  minPosition -1.2
-                                                  maxPosition 0.5
+                                                  minPosition -2.5
+                                                  maxPosition 2.5
                                                 }
                                               ]
                                               endPoint Solid {
@@ -1297,7 +1297,26 @@ Solid {
   name "solid(20)"
 }
 Solid {
-  translation -2.14 0 0.05
+  translation -2.14 -0.02 0.05
+  children [
+    DEF box Shape {
+      appearance PBRAppearance {
+        baseColor 0 0.666667 0
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.03 0.05
+      }
+    }
+  ]
+  name "solid(21)"
+  boundingObject USE box
+  physics Physics {
+  }
+}
+Solid {
+  translation -1.35 -0.21 0.03
   children [
     DEF box Shape {
       appearance PBRAppearance {
@@ -1310,7 +1329,7 @@ Solid {
       }
     }
   ]
-  name "solid(21)"
+  name "solid(23)"
   boundingObject USE box
   physics Physics {
   }
@@ -1327,6 +1346,23 @@ Solid {
     }
   ]
   name "solid(22)"
+  boundingObject USE stn
+  physics Physics {
+  }
+}
+Solid {
+  translation -0.284852 -0.957278 0
+  rotation 0 0 1 0.785398
+  children [
+    DEF stn Shape {
+      appearance PBRAppearance {
+      }
+      geometry Box {
+        size 0.2 0.1 0.1
+      }
+    }
+  ]
+  name "solid(24)"
   boundingObject USE stn
   physics Physics {
   }

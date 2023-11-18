@@ -15,9 +15,7 @@ if __name__ == '__main__':
     # get the time step of the current world.
     timestep = 32
     
-    # You should insert a getDevice-like function in order to get the
-    # instance of a device of the robot. Something like:
-    #  motor = robot.getDevice('motorname')
+   #initialize wheel motors
     r1 = robot.getDevice('R1')
     r2 = robot.getDevice('R2')
     l1 = robot.getDevice('L1')
@@ -28,8 +26,8 @@ if __name__ == '__main__':
     r2.setPosition(float('inf'))
     l1.setPosition(float('inf'))
     l2.setPosition(float('inf'))
-    #  ds = robot.getDevice('dsname')
-    #  ds.enable(timestep)
+    
+    #initialise range sensors
     ir1 = robot.getDevice('IR1')
     ir2 = robot.getDevice('IR2')
     ir3 = robot.getDevice('IR3')
@@ -48,7 +46,7 @@ if __name__ == '__main__':
     dst.enable(timestep)
     dst1.enable(timestep)
     
-    # arm
+    # initialise arm motors
     arm1 = robot.getDevice('link1')
     arm1.setPosition(float('inf'))
     arm1.setVelocity(0)
@@ -68,10 +66,11 @@ if __name__ == '__main__':
     grJoint2.setPosition(float('inf'))
     grJoint2.setVelocity(0)
     
+    # initialise camera
     camera = robot.getDevice('camera')
     camera.enable(10)
 
-    
+    #initialise variables
     max_speed = 100
     cSpeed = 5
     rsp = 0
@@ -98,69 +97,69 @@ if __name__ == '__main__':
     
             
        
-    # Main loop:
+    
     # - perform simulation steps until Webots is stopping the controller
     while robot.step(timestep) != -1:
         # calibrate sensor
-        # if time.time() > t_end-8 and time.time() < t_end-7.9:
-            # ir1Min = ir1.getValue()
-            # ir2Min = ir2.getValue()
-            # ir3Min = ir3.getValue()
-            # ir4Min = ir4.getValue()
-            # ir5Min = ir5.getValue()
-            # ir1Max = ir1.getValue()
-            # ir2Max = ir2.getValue()
-            # ir3Max = ir3.getValue()
-            # ir4Max = ir4.getValue()
-            # ir5Max = ir5.getValue()
-            # print('initialisation completed')
+        if time.time() > t_end-8 and time.time() < t_end-7.9:
+            ir1Min = ir1.getValue()
+            ir2Min = ir2.getValue()
+            ir3Min = ir3.getValue()
+            ir4Min = ir4.getValue()
+            ir5Min = ir5.getValue()
+            ir1Max = ir1.getValue()
+            ir2Max = ir2.getValue()
+            ir3Max = ir3.getValue()
+            ir4Max = ir4.getValue()
+            ir5Max = ir5.getValue()
+            print('initialisation completed')
             
         
-        # if t_end > time.time() and time.time() >t_end-8:
-            # r1.setVelocity(-max_speed)
-            # r2.setVelocity(-max_speed)
-            # l1.setVelocity(max_speed)
-            # l2.setVelocity(max_speed)
-            # value_Ir1 = ir1.getValue()
-            # value_Ir2 = ir2.getValue()
-            # value_Ir3 = ir3.getValue()
-            # value_Ir4 = ir4.getValue()
-            # value_Ir5 = ir5.getValue()
+        if t_end > time.time() and time.time() >t_end-8:
+            r1.setVelocity(-15)
+            r2.setVelocity(-15)
+            l1.setVelocity(15)
+            l2.setVelocity(15)
+            value_Ir1 = ir1.getValue()
+            value_Ir2 = ir2.getValue()
+            value_Ir3 = ir3.getValue()
+            value_Ir4 = ir4.getValue()
+            value_Ir5 = ir5.getValue()
             
-            # if ir1Min > value_Ir1:
-                # ir1Min = value_Ir1
-            # if ir1Max < value_Ir1:
-                # ir1Max = value_Ir1
+            if ir1Min > value_Ir1:
+                ir1Min = value_Ir1
+            if ir1Max < value_Ir1:
+                ir1Max = value_Ir1
                 
-            # if ir2Min > value_Ir2:
-                # ir2Min = value_Ir2
-            # if ir2Max < value_Ir2:
-                # ir2Max = value_Ir2
+            if ir2Min > value_Ir2:
+                ir2Min = value_Ir2
+            if ir2Max < value_Ir2:
+                ir2Max = value_Ir2
                 
-            # if ir3Min > value_Ir3:
-                # ir3Min = value_Ir3
-            # if ir3Max < value_Ir3:
-                # ir3Max = value_Ir3
+            if ir3Min > value_Ir3:
+                ir3Min = value_Ir3
+            if ir3Max < value_Ir3:
+                ir3Max = value_Ir3
                 
-            # if ir4Min > value_Ir4:
-                # ir4Min = value_Ir4
-            # if ir4Max < value_Ir4:
-                # ir4Max = value_Ir4
+            if ir4Min > value_Ir4:
+                ir4Min = value_Ir4
+            if ir4Max < value_Ir4:
+                ir4Max = value_Ir4
                 
-            # if ir5Min > value_Ir5:
-                # ir5Min = value_Ir5
-            # if ir5Max < value_Ir5:
-                # ir5Max = value_Ir5
+            if ir5Min > value_Ir5:
+                ir5Min = value_Ir5
+            if ir5Max < value_Ir5:
+                ir5Max = value_Ir5
             
         
         
         # calculate threshold value
-        # thresholdIr1 = (ir1Min + ir1Max) / 2  
-        # thresholdIr2 = (ir2Min + ir2Max) / 2  
-        # thresholdIr3 = (ir3Min + ir3Max) / 2  
-        # thresholdIr4 = (ir4Min + ir4Max) / 2  
-        # thresholdIr5 = (ir5Min + ir5Max) / 2             
-        # print(thresholdIr1)
+        thresholdIr1 = (ir1Min + ir1Max) / 2  
+        thresholdIr2 = (ir2Min + ir2Max) / 2  
+        thresholdIr3 = (ir3Min + ir3Max) / 2  
+        thresholdIr4 = (ir4Min + ir4Max) / 2  
+        thresholdIr5 = (ir5Min + ir5Max) / 2             
+        print(thresholdIr1)
                 
         value_Ir1 = ir1.getValue()
         value_Ir2 = ir2.getValue()
@@ -200,6 +199,7 @@ if __name__ == '__main__':
         green_detected = len(contours) > 0
         print("Green Color Detected:", green_detected)
         
+        # start pick and place algorithm
         if green_detected is True:
             obstDist = dst.getValue()
             object_area = cv2.contourArea(contours[0])
@@ -212,22 +212,20 @@ if __name__ == '__main__':
                 l2.setVelocity(0)
                 arm2.setPosition(-0.5)
                 arm2.setVelocity(1)
-                arm3.setPosition(0.16)
+                arm3.setPosition(0.16) 
                 arm3.setVelocity(1)
                 if delay == 0:
                     delay = time.time()+3
                 if time.time() > delay and time.time() < delay + 3:
-                    grJoint1.setPosition((object_size/220))
-                    grJoint1.setVelocity(1)
-                    grJoint2.setPosition((-object_size/255))
-                    grJoint2.setVelocity(1)
+                    grJoint1.setPosition((object_size/180))
+                    grJoint1.setVelocity(1.5)
+                    grJoint2.setPosition((-object_size/180))
+                    grJoint2.setVelocity(1.5)
                 if time.time() > (delay+3):
                     arm2.setPosition(0.2)
                     arm2.setVelocity(4)
                     pocket = 1
-                    
-                    
-                    
+                     
                 continue
                 
         if pocket == 1:
@@ -244,27 +242,24 @@ if __name__ == '__main__':
                     delay = time.time()+4
                 if time.time() > delay and time.time() < delay + 4:
                     grJoint1.setPosition(0)
-                    grJoint1.setVelocity(1)
+                    grJoint1.setVelocity(1.5)
                     grJoint2.setPosition(0)
-                    grJoint2.setVelocity(1)
-                if time.time() > (delay+3) and time.time() < delay + 7:
+                    grJoint2.setVelocity(1.5)
+                if time.time() > (delay+4) and time.time() < delay + 7:
                     arm3.setPosition(0)
-                    arm3.setVelocity(2)
+                    arm3.setVelocity(2.5)
                     arm1.setPosition(0)
-                    arm1.setVelocity(2)
+                    arm1.setVelocity(2.5)
                     pocket = 0
                 continue
                 
         print('pocket',pocket)
                 
-        
-
-        # print('ir1: {}  , ir2: {} , ir3: {} , ir4: {} , ir5: {}'.format(value_Ir1,value_Ir2,value_Ir3,value_Ir4,value_Ir5))
-        
+             
 
     
-        # Process sensor data here.
-        if value_Ir1 > 736 and (value_Ir5 < 736) and t_end < time.time() :
+        # line follower algorithm
+        if value_Ir1 > thresholdIr1 and (value_Ir5 < thresholdIr5) and t_end < time.time() :
             lsp = 20
             rsp = -50
             print('right')
@@ -272,7 +267,7 @@ if __name__ == '__main__':
             r2.setVelocity(rsp)
             l1.setVelocity(lsp)
             l2.setVelocity(lsp)
-        elif value_Ir1 < 736 and (value_Ir5 > 736) and t_end < time.time():
+        elif value_Ir1 < thresholdIr1 and (value_Ir5 > thresholdIr5) and t_end < time.time():
             lsp = -50
             rsp = 20
             print('left')
@@ -303,12 +298,11 @@ if __name__ == '__main__':
             elif rsp < 0:
                 rsp = 0
             print('left speed: {}, right speed: {}'.format(lsp,rsp))
-        # Enter here functions to send actuator commands, like:
-        #  motor.setPosition(10.0)
+        
             r1.setVelocity(rsp)
             r2.setVelocity(rsp)
             l1.setVelocity(lsp)
             l2.setVelocity(lsp)
         delay = 0
-    # Enter here exit cleanup code.
+   
     
