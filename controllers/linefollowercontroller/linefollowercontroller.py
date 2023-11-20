@@ -86,12 +86,11 @@ if __name__ == '__main__':
     delay3 = 0
     object_detected = False
     pocket = 0
-    
-    while time.time() < t_end-8 :
-        r1.setVelocity(rsp)
-        r2.setVelocity(rsp)
-        l1.setVelocity(lsp)
-        l2.setVelocity(lsp)
+
+    r1.setVelocity(rsp)
+    r2.setVelocity(rsp)
+    l1.setVelocity(lsp)
+    l2.setVelocity(lsp)
         
     
     
@@ -100,66 +99,6 @@ if __name__ == '__main__':
     
     # - perform simulation steps until Webots is stopping the controller
     while robot.step(timestep) != -1:
-        # calibrate sensor
-        if time.time() > t_end-8 and time.time() < t_end-7.9:
-            ir1Min = ir1.getValue()
-            ir2Min = ir2.getValue()
-            ir3Min = ir3.getValue()
-            ir4Min = ir4.getValue()
-            ir5Min = ir5.getValue()
-            ir1Max = ir1.getValue()
-            ir2Max = ir2.getValue()
-            ir3Max = ir3.getValue()
-            ir4Max = ir4.getValue()
-            ir5Max = ir5.getValue()
-            print('initialisation completed')
-            
-        
-        if t_end > time.time() and time.time() >t_end-8:
-            r1.setVelocity(-15)
-            r2.setVelocity(-15)
-            l1.setVelocity(15)
-            l2.setVelocity(15)
-            value_Ir1 = ir1.getValue()
-            value_Ir2 = ir2.getValue()
-            value_Ir3 = ir3.getValue()
-            value_Ir4 = ir4.getValue()
-            value_Ir5 = ir5.getValue()
-            
-            if ir1Min > value_Ir1:
-                ir1Min = value_Ir1
-            if ir1Max < value_Ir1:
-                ir1Max = value_Ir1
-                
-            if ir2Min > value_Ir2:
-                ir2Min = value_Ir2
-            if ir2Max < value_Ir2:
-                ir2Max = value_Ir2
-                
-            if ir3Min > value_Ir3:
-                ir3Min = value_Ir3
-            if ir3Max < value_Ir3:
-                ir3Max = value_Ir3
-                
-            if ir4Min > value_Ir4:
-                ir4Min = value_Ir4
-            if ir4Max < value_Ir4:
-                ir4Max = value_Ir4
-                
-            if ir5Min > value_Ir5:
-                ir5Min = value_Ir5
-            if ir5Max < value_Ir5:
-                ir5Max = value_Ir5
-            
-        
-        
-        # calculate threshold value
-        thresholdIr1 = (ir1Min + ir1Max) / 2  
-        thresholdIr2 = (ir2Min + ir2Max) / 2  
-        thresholdIr3 = (ir3Min + ir3Max) / 2  
-        thresholdIr4 = (ir4Min + ir4Max) / 2  
-        thresholdIr5 = (ir5Min + ir5Max) / 2             
-        print(thresholdIr1)
                 
         value_Ir1 = ir1.getValue()
         value_Ir2 = ir2.getValue()
@@ -217,20 +156,20 @@ if __name__ == '__main__':
                 if delay == 0:
                     delay = time.time()+3
                 if time.time() > delay and time.time() < delay + 3:
-                    grJoint1.setPosition((object_size/180))
+                    grJoint1.setPosition(object_size/110)
                     grJoint1.setVelocity(1.5)
-                    grJoint2.setPosition((-object_size/180))
+                    grJoint2.setPosition(-object_size/110)
                     grJoint2.setVelocity(1.5)
                 if time.time() > (delay+3):
                     arm2.setPosition(0.2)
-                    arm2.setVelocity(4)
+                    arm2.setVelocity(1.5)
                     pocket = 1
                      
                 continue
                 
         if pocket == 1:
             stnDist = dst1.getValue()
-            print('stnDtist {}',stnDist)
+            print('stnDtist ',stnDist)
             if stnDist < 1000:
                 r1.setVelocity(0)
                 r2.setVelocity(0)
@@ -251,6 +190,8 @@ if __name__ == '__main__':
                     arm1.setPosition(0)
                     arm1.setVelocity(2.5)
                     pocket = 0
+                
+                    
                 continue
                 
         print('pocket',pocket)
@@ -259,7 +200,7 @@ if __name__ == '__main__':
 
     
         # line follower algorithm
-        if value_Ir1 > thresholdIr1 and (value_Ir5 < thresholdIr5) and t_end < time.time() :
+        if (value_Ir1 > 736) and (value_Ir5 < 736):
             lsp = 20
             rsp = -50
             print('right')
@@ -267,7 +208,7 @@ if __name__ == '__main__':
             r2.setVelocity(rsp)
             l1.setVelocity(lsp)
             l2.setVelocity(lsp)
-        elif value_Ir1 < thresholdIr1 and (value_Ir5 > thresholdIr5) and t_end < time.time():
+        elif (value_Ir1 < 736) and (value_Ir5 > 736):
             lsp = -50
             rsp = 20
             print('left')
@@ -275,7 +216,7 @@ if __name__ == '__main__':
             r2.setVelocity(rsp)
             l1.setVelocity(lsp)
             l2.setVelocity(lsp)
-        elif t_end < time.time():
+        else:
             kp = 0.1
             kd = 0
             ki = 0
