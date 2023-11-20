@@ -86,6 +86,7 @@ if __name__ == '__main__':
     delay3 = 0
     object_detected = False
     pocket = 0
+    size = 0
 
     r1.setVelocity(rsp)
     r2.setVelocity(rsp)
@@ -144,7 +145,10 @@ if __name__ == '__main__':
             object_area = cv2.contourArea(contours[0])
             object_size = np.sqrt(object_area)
             print(obstDist)
-            if obstDist < 415:
+            if obstDist < 460:
+                if size == 0:
+                    size = object_size
+                print('size:', size)
                 r1.setVelocity(0)
                 r2.setVelocity(0)
                 l1.setVelocity(0)
@@ -156,9 +160,9 @@ if __name__ == '__main__':
                 if delay == 0:
                     delay = time.time()+3
                 if time.time() > delay and time.time() < delay + 3:
-                    grJoint1.setPosition(object_size/110)
+                    grJoint1.setPosition(size/200)
                     grJoint1.setVelocity(1.5)
-                    grJoint2.setPosition(-object_size/110)
+                    grJoint2.setPosition(-size/200)
                     grJoint2.setVelocity(1.5)
                 if time.time() > (delay+3):
                     arm2.setPosition(0.2)
@@ -186,9 +190,9 @@ if __name__ == '__main__':
                     grJoint2.setVelocity(1.5)
                 if time.time() > (delay+4) and time.time() < delay + 7:
                     arm3.setPosition(0)
-                    arm3.setVelocity(2.5)
+                    arm3.setVelocity(4)
                     arm1.setPosition(0)
-                    arm1.setVelocity(2.5)
+                    arm1.setVelocity(4)
                     pocket = 0
                 
                     

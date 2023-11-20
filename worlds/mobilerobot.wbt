@@ -8,8 +8,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.0899020991709661 0.09080822142314719 0.9918021372666115 1.5690308951341525
-  position -2.3660203181394794 -0.8258497378237457 0.2038598044312396
+  orientation -0.17973422743504858 0.222083293542145 0.9583186412763761 1.4026124897763144
+  position -2.5724680718674646 -1.8037262826945177 0.9560366560799529
   follow "robot"
 }
 TexturedBackground {
@@ -308,7 +308,7 @@ Robot {
               }
             ]
             endPoint DEF joint1 Solid {
-              translation -0.020000063554223936 -3.217843157466286e-08 -3.677961582240655e-06
+              translation -0.020000063554223936 -3.217843157466328e-08 -3.677961582240636e-06
               rotation 0.11803697737839201 -0.9859778110388496 -0.11796197739276616 1.5847253071795835
               children [
                 DEF joint1 Shape {
@@ -407,7 +407,7 @@ Robot {
                                                 metalness 0
                                               }
                                               geometry Box {
-                                                size 0.025 0.08 0.01
+                                                size 0.035 0.08 0.01
                                               }
                                             }
                                             DEF gripper1 HingeJoint {
@@ -1352,7 +1352,7 @@ Solid {
   }
 }
 Solid {
-  translation -0.256568 -0.914852 0
+  translation -0.362633 -1.03506 0
   rotation 0 0 1 0.785398
   children [
     DEF stn Shape {
